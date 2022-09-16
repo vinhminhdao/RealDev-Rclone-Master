@@ -80,6 +80,16 @@ echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 nano /root/backup.sh;
+wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/crontab -O crontab;
+echo -ne "
+===================================================================================
+
+    Mọi thứ đã hoàn tất. Xin vui lòng check trên Cloud của bạn đã có hay chưa.?
+    Nếu chưa có xin vui lòng làm đúng hướng dẫn. Chúc Bạn thành công. ^^
+
+===================================================================================";
+echo "":
+pause ' Nhấn [Enter] để tiếp tục...';
 service crond restart;
 find . -name "realdev-rclone.sh" -delete;
 history -c;
