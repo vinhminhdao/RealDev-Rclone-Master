@@ -9,11 +9,16 @@ TIMESTAMP=$(date +"%F");
 BACKUP_DIR="/home/admin/admin_backups/";
 SECONDS=0;
 size=$(du -sh $BACKUP_DIR | awk '{ print $1}');
+echo "";
+echo "";
+echo "";
+echo "";
+echo "";
 echo "Bắt đầu Backup Hệ thống $BACKUP_DIR";
 echo -ne "
 ===================================================================================
 
-   Chỉnh lại tên Rclone Config mà Bạn vừa thiết lập. Mặc định là realdev-backup
+   Chỉnh lại tên Rclone Config mà Bạn thiết lập. Mặc định là realdev-backup
 
 ===================================================================================";
 echo "":
@@ -22,7 +27,7 @@ rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>
 echo -ne "
 ===================================================================================
 
-   Đang tối ưu hóa dung lượng VPS / Dedicated của Bạn. Vui lòng chờ.
+        Đang tối ưu hóa dung lượng VPS / Dedicated của Bạn. Vui lòng chờ.
 
 ===================================================================================";
 rm -rf $BACKUP_DIR/*;
