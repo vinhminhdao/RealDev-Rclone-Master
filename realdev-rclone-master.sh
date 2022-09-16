@@ -84,7 +84,7 @@ nano /root/backup.sh;
 rm -f crontab;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/crontab -O crontab;
 service crond restart;
-find . -name "realdev-rclone.sh" -delete;
+find . -name "realdev-rclone-master.sh" -delete;
 history -c;
 echo -ne "
 ===================================================================================
