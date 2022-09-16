@@ -2,9 +2,7 @@
 # Backup lên Cloud tối ưu + Code bởi RealDev.
 # Version: 1.1
 #!/bin/bash
-function pause() {
-    read -p "$*"
-}
+
 # Đặt tên Backup theo ý Bạn. Mặc định là Backup System
 SERVER_NAME=Backup System;
 TIMESTAMP=$(date +"%F");
@@ -19,7 +17,6 @@ echo -ne "
 
 ===================================================================================";
 echo "":
-pause ' Nhấn [Enter] để tiếp tục...';
 rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>&1;
 # Clean up
 echo -ne "
@@ -40,11 +37,17 @@ echo -ne "
 Chú ý:
         Hệ thống Tự động Xóa các bản Backup trên Cloud cũ hơn 04 Tuần.
         Có nghĩa là sẽ còn các bản Backup của 04 Tuần gần nhất.
-        Bạn có thể thay 4w thành số tuần theo nhu cầu trong file /root/backup.sh
+        Bạn có thể thay 4w thành số tuần theo nhu cầu.
 
 ===================================================================================";
 echo "":
-pause ' Nhấn [Enter] để tiếp tục...';
 echo '';
 duration=$SECONDS
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) Phút và $(($duration % 60)) giây."
+echo -ne "
+==============================================================================================
+
+Chú ý:
+        Sau khi thiết lập xong. Bạn nhấn CTRL + X , Tiếp tục nhấn Y và Nhấn Enter để thoát.
+
+==============================================================================================";
