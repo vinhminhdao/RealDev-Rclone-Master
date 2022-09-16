@@ -65,6 +65,7 @@ echo -ne "
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 cd;
+rm -f backup.sh;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/backup.sh -O backup.sh;
 chmod +x /root/backup.sh;
 yum install nano -y;
@@ -80,6 +81,7 @@ echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo "";
 nano /root/backup.sh;
+rm -f crontab;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/crontab -O crontab;
 service crond restart;
 find . -name "realdev-rclone.sh" -delete;
