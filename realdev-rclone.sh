@@ -72,6 +72,6 @@ echo -ne "
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 nano /root/backup.sh;
-find . -name "realdev-rclone.sh" -delete;
 service crond restart;
+find . -name "realdev-rclone.sh" -delete;
 history -c;
