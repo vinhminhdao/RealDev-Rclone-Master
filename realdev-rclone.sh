@@ -8,11 +8,14 @@ function pause() {
 echo -ne "
 ===================================================================================
 
-    Để bắt đầu, Bạn nhấn Enter để cài đặt bản mới nhất của Rclone từ Trang chủ
+    Để bắt đầu, Bạn nhấn Enter để cài đặt bản mới nhất của Rclone từ Trang chủ.
+    Bạn cần Cập nhật hệ thống để các Dịch vụ hoạt động tốt nhất. Chỉ cần Enter.
 
 ===================================================================================";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
+yum update -y;
+dnf update -y;
 curl https://rclone.org/install.sh | sudo bash;
 clear;
 echo -ne "
