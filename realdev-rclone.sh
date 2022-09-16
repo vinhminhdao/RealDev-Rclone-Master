@@ -48,3 +48,30 @@ echo -ne "
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 rclone config;
+clear;
+echo -ne "
+===================================================================================
+
+    Vậy là Bạn đã thiết lập xong Rclone Config.
+    Bước tiếp theo, Bạn cần thiết lập cho Rclone có thể Tự động Backup.
+
+===================================================================================";
+pause ' Nhấn [Enter] để tiếp tục...';
+cd;
+wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/backup.sh -O backup.sh;
+chmod +x /root/backup.sh;
+yum install nano -y;
+dnf install nano -y;
+echo -ne "
+===================================================================================
+
+    Vậy là đến bước này bạn đã hoàn thành 70% khối lượng công việc.
+    Chỉ còn một chút nữa thôi. Let's go.
+
+===================================================================================";
+pause ' Nhấn [Enter] để tiếp tục...';
+clear;
+nano /root/backup.sh;
+find . -name "realdev-rclone.sh" -delete;
+service crond restart;
+history -c;
