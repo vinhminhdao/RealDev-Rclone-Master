@@ -18,6 +18,7 @@ echo -ne "
    Chỉnh lại tên Rclone Config mà Bạn vừa thiết lập. Mặc định là realdev-backup
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>&1;
 # Clean up
@@ -42,6 +43,7 @@ Chú ý:
         Bạn có thể thay 4w thành số tuần theo nhu cầu trong file /root/backup.sh
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo '';
 duration=$SECONDS

@@ -11,6 +11,7 @@ echo -ne "
     Để bắt đầu, Bạn nhấn Enter để cài đặt bản mới nhất của Rclone từ Trang chủ
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 curl https://rclone.org/install.sh | sudo bash;
 clear;
@@ -25,6 +26,7 @@ echo -ne "
     curl https://rclone.org/install.sh | sudo bash
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 echo -ne "
@@ -45,6 +47,7 @@ echo -ne "
     Hãy chú ý kiểm tra cho chính xác vì số thứ tự có thể thay đổi theo thời gian
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 rclone config;
@@ -56,6 +59,7 @@ echo -ne "
     Bước tiếp theo, Bạn cần thiết lập cho Rclone có thể Tự động Backup.
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 cd;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/backup.sh -O backup.sh;
@@ -69,6 +73,7 @@ echo -ne "
     Chỉ còn một chút nữa thôi. Let's go.
 
 ===================================================================================";
+echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 clear;
 nano /root/backup.sh;
