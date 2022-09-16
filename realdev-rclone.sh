@@ -17,7 +17,7 @@ pause ' Nhấn [Enter] để tiếp tục...';
 yum update -y;
 dnf update -y;
 curl https://rclone.org/install.sh | sudo bash;
-clear;
+echo "";
 echo -ne "
 ===================================================================================
 
@@ -31,7 +31,7 @@ echo -ne "
 ===================================================================================";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-clear;
+echo "";
 echo -ne "
 ===================================================================================
 
@@ -41,7 +41,7 @@ echo -ne "
 echo "";
 echo "";
 echo "";
-clear;
+echo "";
 echo -ne "
 ===================================================================================
 
@@ -52,9 +52,9 @@ echo -ne "
 ===================================================================================";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-clear;
+echo "";
 rclone config;
-clear;
+echo "";
 echo -ne "
 ===================================================================================
 
@@ -78,7 +78,7 @@ echo -ne "
 ===================================================================================";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-clear;
+echo "";
 nano /root/backup.sh;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/crontab -O crontab;
 service crond restart;
