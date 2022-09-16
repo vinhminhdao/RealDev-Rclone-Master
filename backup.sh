@@ -44,12 +44,14 @@ echo "":
 echo '';
 duration=$SECONDS
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) Phút và $(($duration % 60)) giây."
+echo "Múi giờ và Ngày Giờ trên VPS của Bạn là:";
+date;
 echo -ne "
 ==============================================================================================
 
 Chú ý:
          Múi giờ Backup mặc định hàng ngày là lúc 5:00 Sáng. Theo giờ trên VPS.
-         
+
         Sau khi thiết lập xong. Bạn nhấn CTRL + X , Tiếp tục nhấn Y và Nhấn Enter để thoát.
 
 ==============================================================================================";
