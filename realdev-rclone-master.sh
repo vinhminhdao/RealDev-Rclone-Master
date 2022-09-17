@@ -11,7 +11,7 @@ echo -ne "
     Để bắt đầu, Bạn nhấn Enter để cài đặt bản mới nhất của Rclone từ Trang chủ.
     Bạn cần Cập nhật hệ thống để các Dịch vụ hoạt động tốt nhất. Chỉ cần Enter.
 
-===================================================================================";
+";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 yum update -y;
@@ -28,7 +28,7 @@ echo -ne "
     Với Linux bạn Copy link này và dán vào Terminal để cài đặt:
     curl https://rclone.org/install.sh | sudo bash
 
-===================================================================================";
+";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo "";
@@ -37,7 +37,7 @@ echo -ne "
 
     Sau khi đã cài đặt xong Bạn nhấn Enter để tiến hành Config cho Rclone:
 
-===================================================================================";
+";
 echo "";
 echo "";
 echo "";
@@ -49,7 +49,7 @@ echo -ne "
     Ví dụ: Google là 18 và One Drive là 32.
     Hãy chú ý kiểm tra cho chính xác vì số thứ tự có thể thay đổi theo thời gian
 
-===================================================================================";
+";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo "";
@@ -61,7 +61,7 @@ echo -ne "
     Vậy là Bạn đã thiết lập xong Rclone Config.
     Bước tiếp theo, Bạn cần thiết lập cho Rclone có thể Tự động Backup.
 
-===================================================================================";
+";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 cd;
@@ -76,7 +76,7 @@ echo -ne "
     Vậy là đến bước này bạn đã hoàn thành 70% khối lượng công việc.
     Chỉ còn một chút nữa thôi. Let's go.
 
-===================================================================================";
+";
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo "";
@@ -89,7 +89,7 @@ echo -ne "
     Bạn chú ý thêm lại các crontab trước đó vào crontab mới.
     Nếu không có sẵn, bạn không cần chú ý đến cảnh báo này.
 
-===================================================================================";
+";
 echo "":
 move crontab crontab.txt;
 rm -f crontab;
