@@ -1,6 +1,6 @@
 # https://www.realdev.vn/
 # Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.1
+# Version: 1.3
 #!/bin/bash
 function pause() {
     read -p "$*"
@@ -81,6 +81,17 @@ echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 echo "";
 nano /root/backup.sh;
+clear;
+echo -ne "
+===================================================================================
+
+    Trong trường hợp bạn đã có sẵn Crontab. Script này đổi tên thành crontab.txt
+    Bạn chú ý thêm lại các crontab trước đó vào crontab mới.
+    Nếu không có sẵn, bạn không cần chú ý đến cảnh báo này.
+
+===================================================================================";
+echo "":
+move crontab crontab.txt;
 rm -f crontab;
 wget https://raw.githubusercontent.com/vinhminhdao/RealDev-Rclone-Master/main/crontab -O crontab;
 service crond restart;
