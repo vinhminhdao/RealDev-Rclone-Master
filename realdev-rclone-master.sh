@@ -26,6 +26,7 @@ echo -ne "
     Với Windows: https://rclone.org/downloads/
 
     Với Linux bạn Copy link này và dán vào Terminal để cài đặt:
+    
     curl https://rclone.org/install.sh | sudo bash
 
 ";
