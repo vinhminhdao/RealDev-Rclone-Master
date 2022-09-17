@@ -21,7 +21,7 @@ echo -ne  "
 ";
 echo "Bắt đầu Backup Hệ thống $BACKUP_DIR";
 echo -ne "
-=======================================================================================
+==============================================================================================
 
                         Chỉnh lại tên Rclone Config mà Bạn thiết lập. 
                         Vì nếu sai tên Rclone Config sẽ không hoạt động.
@@ -31,7 +31,7 @@ echo "":
 rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>&1;
 # Clean up
 echo -ne "
-=======================================================================================
+==============================================================================================
 
         Đang tối ưu hóa dung lượng VPS / Dedicated của Bạn. Vui lòng chờ.
 
@@ -44,7 +44,7 @@ rclone -q --min-age 4w rmdirs "realdev-backup:$SERVER_NAME" #Remove all empty fo
 rclone cleanup "realdev-backup:" #Cleanup Trash
 echo "Hoàn tất";
 echo -ne "
-=======================================================================================
+==============================================================================================
 
 Chú ý:
         Hệ thống Tự động Xóa các bản Backup trên Cloud cũ hơn 04 Tuần.
