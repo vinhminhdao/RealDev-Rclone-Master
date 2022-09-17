@@ -1,10 +1,11 @@
 # https://www.realdev.vn/
 # Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.1
+# Version: 1.2
 #!/bin/bash
 
-# Đặt tên Backup theo ý Bạn. Mặc định là Backup System
-SERVER_NAME=Backup System;
+# Đặt tên Backup theo ý Bạn. Mặc định là Backup-System
+#Chú ý tên Folder Cách nhau bằng dấu Gạch ngang hoặc Gạch dưới để hoạt động tốt nhất.
+SERVER_NAME=Backup-System;
 TIMESTAMP=$(date +"%F");
 BACKUP_DIR="/home/admin/admin_backups/";
 SECONDS=0;
@@ -16,11 +17,12 @@ echo "";
 echo "";
 echo "Bắt đầu Backup Hệ thống $BACKUP_DIR";
 echo -ne "
-===================================================================================
+=======================================================================================
 
-   Chỉnh lại tên Rclone Config mà Bạn thiết lập. Mặc định là realdev-backup
+                        Chỉnh lại tên Rclone Config mà Bạn thiết lập. 
+                        Vì nếu sai tên Rclone Config sẽ không hoạt động.
 
-===================================================================================";
+=======================================================================================";
 echo "":
 rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>&1;
 # Clean up
@@ -30,6 +32,7 @@ echo -ne "
         Đang tối ưu hóa dung lượng VPS / Dedicated của Bạn. Vui lòng chờ.
 
 ===================================================================================";
+echo "";
 rm -rf $BACKUP_DIR/*;
 
 rclone -q --min-age 4w delete "realdev-backup:$SERVER_NAME" #Remove all backups older than 4 week
@@ -57,6 +60,6 @@ echo -ne "
 Chú ý:
          Múi giờ Backup mặc định hàng ngày là lúc 5:00 Sáng. Theo giờ trên VPS.
 
-        Sau khi thiết lập xong. Bạn nhấn CTRL + X , Tiếp tục nhấn Y và Nhấn Enter để thoát.
+                                Nhấn Enter để thoát.
 
 ==============================================================================================";
