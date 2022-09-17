@@ -54,10 +54,11 @@ Chú ý:
 ";
 echo "":
 echo '';
-duration=$SECONDS
+duration=$SECONDS;
+timedatectl set-timezone Asia/Ho_Chi_Minh;
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) Phút và $(($duration % 60)) giây."
 echo "Múi giờ và Ngày Giờ trên VPS của Bạn là:";
-date;
+timedatectl;
 echo -ne "
 ==============================================================================================
 
