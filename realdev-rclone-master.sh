@@ -1,10 +1,12 @@
 # https://www.realdev.vn/
+# Link hướng dẫn sử dụng: https://www.realdev.vn/downloads/rclone-tu-dong-backup-vps-voi-realdev-rclone-master-script-2756.html#step-1
 # Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.4
+# Version: 1.5
 #!/bin/bash
 function pause() {
     read -p "$*"
 }
+cd;
 echo -ne "
 ===================================================================================
 
@@ -17,7 +19,6 @@ pause ' Nhấn [Enter] để tiếp tục...';
 yum update -y;
 dnf update -y;
 curl https://rclone.org/install.sh | sudo bash;
-echo "";
 echo -ne "
 ===================================================================================
 
@@ -30,19 +31,13 @@ echo -ne "
     curl https://rclone.org/install.sh | sudo bash
 
 ";
-echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-echo "";
 echo -ne "
 ===================================================================================
 
     Sau khi đã cài đặt xong Bạn nhấn Enter để tiến hành Config cho Rclone:
 
 ";
-echo "";
-echo "";
-echo "";
-echo "";
 echo -ne "
 ===================================================================================
 
@@ -51,11 +46,8 @@ echo -ne "
     Hãy chú ý kiểm tra cho chính xác vì số thứ tự có thể thay đổi theo thời gian
 
 ";
-echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-echo "";
 rclone config;
-echo "";
 echo -ne "
 ===================================================================================
 
@@ -78,9 +70,7 @@ echo -ne "
     Chỉ còn một chút nữa thôi. Let's go.
 
 ";
-echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
-echo "";
 nano /root/backup.sh;
 clear;
 echo -ne "
@@ -93,7 +83,6 @@ echo -ne "
     Sau khi dán, bạn nhấn CTRL + X, sau đó nhấn Y và nhấn ENTER để thoát soạn thảo
 
 ";
-echo "":
 pause ' Nhấn [Enter] để thiết lập Crontab...';
 EDITOR=nano crontab -e;
 service crond restart;
@@ -110,6 +99,6 @@ echo -ne "
     Nhấn Enter để Backup ngay. Nhấn CTRL + C để thoát.
 
 ===================================================================================";
-echo "":
 pause ' Nhấn [Enter] để Backup...';
+clear;
 /root/backup.sh;

@@ -1,6 +1,7 @@
 # https://www.realdev.vn/
+# Link hướng dẫn sử dụng: https://www.realdev.vn/downloads/rclone-tu-dong-backup-vps-voi-realdev-rclone-master-script-2756.html#step-1
 # Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.4
+# Version: 1.5
 #!/bin/bash
 # Đặt tên Backup theo ý Bạn. Mặc định là Backup-System
 #Chú ý tên Folder Cách nhau bằng dấu Gạch ngang hoặc Gạch dưới để hoạt động tốt nhất.
@@ -27,8 +28,7 @@ echo -ne "
                         Vì nếu sai tên Rclone Config sẽ không hoạt động.
 
 ";
-echo "":
-rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /dev/null 2>&1;
+rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /root/backup.log 2>&1;
 # Clean up
 echo -ne "
 ==============================================================================================
@@ -52,8 +52,6 @@ Chú ý:
         Bạn có thể thay 4w thành số tuần theo nhu cầu.
 
 ";
-echo "":
-echo '';
 duration=$SECONDS;
 timedatectl set-timezone Asia/Ho_Chi_Minh;
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) Phút và $(($duration % 60)) giây."
@@ -68,3 +66,4 @@ Chú ý:
                                 Nhấn Enter để thoát.
 
 ==============================================================================================";
+echo "";
