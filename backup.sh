@@ -11,6 +11,7 @@ echo -ne  "
 
 ";
 SERVER_NAME=Backup-System;
+CONFIG_NAME=realdev-backup;
 TIMESTAMP=$(date +"%F");
 BACKUP_DIR="/home/admin/admin_backups/";
 SECONDS=0;
@@ -28,7 +29,7 @@ echo -ne "
                         Vì nếu sai tên Rclone Config sẽ không hoạt động.
 
 ";
-rclone move $BACKUP_DIR "realdev-backup:$SERVER_NAME/$TIMESTAMP" >> /root/backup.log 2>&1;
+rclone move $BACKUP_DIR "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" >> /root/backup.log 2>&1;
 # Clean up
 echo -ne "
 ==============================================================================================
@@ -39,9 +40,9 @@ echo -ne "
 echo "";
 rm -rf $BACKUP_DIR/*;
 
-rclone -q --min-age 4w delete "realdev-backup:$SERVER_NAME" #Remove all backups older than 4 week
-rclone -q --min-age 4w rmdirs "realdev-backup:$SERVER_NAME" #Remove all empty folders older than 4 week
-rclone cleanup "realdev-backup:" #Cleanup Trash
+rclone -q --min-age 4w delete "$CONFIG_NAME:$SERVER_NAME" #Remove all backups older than 4 week
+rclone -q --min-age 4w rmdirs "$CONFIG_NAME:$SERVER_NAME" #Remove all empty folders older than 4 week
+rclone cleanup "$CONFIG_NAME:" #Cleanup Trash
 echo "Hoàn tất";
 echo -ne "
 ==============================================================================================
