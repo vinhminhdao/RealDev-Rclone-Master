@@ -84,7 +84,7 @@ echo -ne "
 
 ";
 pause ' Nhấn [Enter] để thiết lập Crontab...';
-EDITOR=nano crontab -e;
+nano /ect/crond.d/crontab -e;
 service crond restart;
 find . -name "realdev-rclone-master.sh" -delete;
 history -c;
