@@ -1,7 +1,7 @@
 # https://www.realdev.vn/
 # Link hướng dẫn sử dụng: https://www.realdev.vn/downloads/rclone-tu-dong-backup-vps-voi-realdev-rclone-master-script-2756.html#step-1
 # Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.6
+# Version: 1.7
 #!/bin/bash
 # Đặt tên Backup theo ý Bạn. Mặc định là Backup-System
 #Chú ý tên Folder Cách nhau bằng dấu Gạch ngang hoặc Gạch dưới để hoạt động tốt nhất.
