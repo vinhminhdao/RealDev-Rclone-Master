@@ -40,17 +40,17 @@ echo -ne "
 echo "";
 rm -rf $BACKUP_DIR/*;
 
-rclone -q --min-age 4w delete "$CONFIG_NAME:$SERVER_NAME" #Remove all backups older than 4 week
-rclone -q --min-age 4w rmdirs "$CONFIG_NAME:$SERVER_NAME" #Remove all empty folders older than 4 week
+rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" #Remove all backups older than 2 week
+rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" #Remove all empty folders older than 2 week
 rclone cleanup "$CONFIG_NAME:" #Cleanup Trash
 echo "Hoàn tất";
 echo -ne "
 ==============================================================================================
 
 Chú ý:
-        Hệ thống Tự động Xóa các bản Backup trên Cloud cũ hơn 04 Tuần.
-        Có nghĩa là sẽ còn các bản Backup của 04 Tuần gần nhất.
-        Bạn có thể thay 4w thành số tuần theo nhu cầu.
+        Hệ thống Tự động Xóa các bản Backup trên Cloud cũ hơn 02 Tuần.
+        Có nghĩa là sẽ còn các bản Backup của 02 Tuần gần nhất.
+        Bạn có thể thay 2w thành số tuần theo nhu cầu.
 
 ";
 duration=$SECONDS;
