@@ -64,8 +64,8 @@ echo "";
 rm -rf $BACKUP_DIR/*;
 
 # Xóa các bản backup cũ hơn 2 tuần
-rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" # Remove all empty folders older than 2 weeks
-rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" # Remove all backups older than 2 weeks
+rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" # Xóa các folder backup cũ hơn 2 tuần
+rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" # Xóa các bản backup cũ hơn 2 tuần
 rclone cleanup "$CONFIG_NAME:" # Cleanup Trash
 
 # Hoàn tất
