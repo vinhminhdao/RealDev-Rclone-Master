@@ -1,22 +1,30 @@
-# https://www.realdev.vn/
-# Link hướng dẫn sử dụng: https://www.realdev.vn/downloads/rclone-tu-dong-backup-vps-voi-realdev-rclone-master-script-2756.html#step-1
-# Backup lên Cloud tối ưu + Code bởi RealDev.
-# Version: 1.7
 #!/bin/bash
+# Backup lên OneDrive với 2 tài khoản theo ngày cụ thể
+# Tài khoản A: Ngày 3, 5, 7
+# Tài khoản B: Ngày 2, 4, 6, CN
+
 # Đặt tên Backup theo ý Bạn. Mặc định là Backup-System
-#Chú ý tên Folder Cách nhau bằng dấu Gạch ngang hoặc Gạch dưới để hoạt động tốt nhất.
-echo -ne  "
+# Chú ý tên Folder Cách nhau bằng dấu Gạch ngang hoặc Gạch dưới để hoạt động tốt nhất.
+echo -ne "
 
 
 
 ";
 SERVER_NAME=Backup-System;
-CONFIG_NAME=realdev-backup;
 TIMESTAMP=$(date +"%F");
 BACKUP_DIR="/home/admin/admin_backups/";
 SECONDS=0;
+
+# Tên Config của rclone cho 2 tài khoản
+CONFIG_NAME_A=realdev-backup-odd; # Tài khoản A, sửa lại theo tên thực tế mà bạn đặt
+CONFIG_NAME_B=realdev-backup-even; # Tài khoản B, sửa lại theo tên thực tế mà bạn đặt
+
+# Xác định ngày trong tuần (1=Thứ Hai, 7=Chủ Nhật)
+DAY_OF_WEEK=$(date +%u);
+
+# Kiểm tra dung lượng thư mục backup
 size=$(du -sh $BACKUP_DIR | awk '{ print $1}');
-echo -ne  "
+echo -ne "
 
 
 
@@ -29,7 +37,22 @@ echo -ne "
                         Vì nếu sai tên Rclone Config sẽ không hoạt động.
 
 ";
+
+# Chọn tài khoản dựa trên ngày
+if [[ "$DAY_OF_WEEK" == "3" || "$DAY_OF_WEEK" == "5" || "$DAY_OF_WEEK" == "7" ]]; then
+    CONFIG_NAME=$CONFIG_NAME_A;
+    echo "Ngày hiện tại là $DAY_OF_WEEK. Sử dụng cấu hình Rclone cho Tài khoản A: $CONFIG_NAME_A";
+elif [[ "$DAY_OF_WEEK" == "2" || "$DAY_OF_WEEK" == "4" || "$DAY_OF_WEEK" == "6" || "$DAY_OF_WEEK" == "7" ]]; then
+    CONFIG_NAME=$CONFIG_NAME_B;
+    echo "Ngày hiện tại là $DAY_OF_WEEK. Sử dụng cấu hình Rclone cho Tài khoản B: $CONFIG_NAME_B";
+else
+    echo "Không có lịch backup trong ngày này.";
+    exit 0;
+fi
+
+# Thực hiện backup
 rclone move $BACKUP_DIR "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" >> /root/backup.log 2>&1;
+
 # Clean up
 echo -ne "
 ==============================================================================================
@@ -40,9 +63,12 @@ echo -ne "
 echo "";
 rm -rf $BACKUP_DIR/*;
 
-rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" #Remove all backups older than 2 week
-rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" #Remove all empty folders older than 2 week
-rclone cleanup "$CONFIG_NAME:" #Cleanup Trash
+# Xóa các bản backup cũ hơn 2 tuần
+rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" # Remove all empty folders older than 2 weeks
+rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" # Remove all backups older than 2 weeks
+rclone cleanup "$CONFIG_NAME:" # Cleanup Trash
+
+# Hoàn tất
 echo "Hoàn tất";
 echo -ne "
 ==============================================================================================
