@@ -1,7 +1,7 @@
 #!/bin/bash
-# Backup lên Drive với 2 tài khoản, hoặc backup ngắt đoạn theo nhu cầu của Bạn theo ngày cụ thể
-# backup-odd: Ngày 3, 5, 7
-# backup-even: Ngày 2, 4, 6, CN
+# Backup lên OneDrive với 2 tài khoản dựa trên ngày chẵn/lẻ
+# Tài khoản ODD: Ngày lẻ
+# Tài khoản EVEN: Ngày chẵn
 
 # Đặt tên Backup theo ý bạn
 SERVER_NAME=Backup-System
@@ -10,11 +10,11 @@ BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
 # Tên Config của rclone cho 2 tài khoản
-CONFIG_NAME_ODD="backup-odd"   # Tài khoản cho ngày lẻ
-CONFIG_NAME_EVEN="backup-even" # Tài khoản cho ngày chẵn
+CONFIG_NAME_ODD="realdev-backup-odd"   # Tài khoản cho ngày lẻ
+CONFIG_NAME_EVEN="realdev-backup-even" # Tài khoản cho ngày chẵn
 
-# Xác định ngày trong tuần (1=Thứ Hai, 7=Chủ Nhật)
-DAY_OF_WEEK=$(date +%u)
+# Xác định ngày của tháng
+DAY_OF_MONTH=$(date +%d)
 
 # Kiểm tra dung lượng thư mục backup
 size=$(du -sh $BACKUP_DIR | awk '{ print $1 }')
@@ -33,16 +33,13 @@ echo -ne "
 
 "
 
-# Chọn tài khoản dựa trên ngày
-if [[ "$DAY_OF_WEEK" == "3" || "$DAY_OF_WEEK" == "5" || "$DAY_OF_WEEK" == "7" ]]; then
-    CONFIG_NAME=$CONFIG_NAME_ODD
-    echo "Ngày hiện tại là $DAY_OF_WEEK. Sử dụng cấu hình Rclone cho Tài khoản ODD: $CONFIG_NAME_ODD"
-elif [[ "$DAY_OF_WEEK" == "2" || "$DAY_OF_WEEK" == "4" || "$DAY_OF_WEEK" == "6" || "$DAY_OF_WEEK" == "7" ]]; then
+# Kiểm tra ngày chẵn/lẻ
+if (( DAY_OF_MONTH % 2 == 0 )); then
     CONFIG_NAME=$CONFIG_NAME_EVEN
-    echo "Ngày hiện tại là $DAY_OF_WEEK. Sử dụng cấu hình Rclone cho Tài khoản EVEN: $CONFIG_NAME_EVEN"
+    echo "Ngày hiện tại là ngày chẵn ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản EVEN: $CONFIG_NAME_EVEN"
 else
-    echo "Không có lịch backup trong ngày này."
-    exit 0
+    CONFIG_NAME=$CONFIG_NAME_ODD
+    echo "Ngày hiện tại là ngày lẻ ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản ODD: $CONFIG_NAME_ODD"
 fi
 
 # Thực hiện backup
