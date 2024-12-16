@@ -1,5 +1,5 @@
 #!/bin/bash
-# Backup lên Drive với 2 tài khoản theo ngày cụ thể
+# Backup lên Drive với 2 tài khoản, hoặc backup ngắt đoạn theo nhu cầu của Bạn theo ngày cụ thể
 # backup-odd: Ngày 3, 5, 7
 # backup-even: Ngày 2, 4, 6, CN
 
