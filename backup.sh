@@ -1,5 +1,5 @@
 #!/bin/bash
-# Backup lên OneDrive với 2 tài khoản dựa trên ngày chẵn/lẻ
+# Backup lên Cloud với 2 tài khoản dựa trên ngày chẵn/lẻ
 # Tài khoản ODD: Ngày lẻ
 # Tài khoản EVEN: Ngày chẵn
 
