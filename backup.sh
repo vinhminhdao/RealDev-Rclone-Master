@@ -130,7 +130,7 @@ if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a 
     
     "
 else
-    MESSAGE="⚠️ Backup thất bại!\nVui lòng kiểm tra log tại /root/backup.log"
+    MESSAGE="⚠️ Backup thất bại! Vui lòng kiểm tra log tại /root/backup.log"
     send_telegram "$MESSAGE"
     exit 1
 fi
