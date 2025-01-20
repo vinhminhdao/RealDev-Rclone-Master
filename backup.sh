@@ -6,6 +6,9 @@
 # Đặt tên Backup theo ý bạn
 SERVER_NAME=Backup-System
 TIMESTAMP=$(date +"%F")
+
+#Thư mục chứa các File Backup của bạn, trong mã này mình sử dụng DirectAdmin.
+#Quảng cáo nhẹ, mình nhận cài DirectAdmin + Tối ưu giá 6 chăm ka. Giá trị ở tối ưu chứ file cài inbox mình share Free.
 BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
