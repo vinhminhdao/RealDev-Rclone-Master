@@ -46,7 +46,7 @@ send_telegram() {
     local MESSAGE="$1"
     local TELEGRAM_API_URL="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
 
-    # Thêm -v để hiển thị chi tiết và lưu response
+    # Thêm hiển thị chi tiết
     response=$(curl -s -v -X POST "$TELEGRAM_API_URL" \
         -d chat_id="$TELEGRAM_CHAT_ID" \
         -d text="$MESSAGE" \
