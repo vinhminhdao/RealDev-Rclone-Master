@@ -1,4 +1,6 @@
 #!/bin/bash
+# RealDev Master Backup
+# Version: 2.0.0
 # Backup lên Cloud với 2 tài khoản dựa trên ngày chẵn/lẻ
 # Tài khoản ODD: Ngày lẻ
 # Tài khoản EVEN: Ngày chẵn
