@@ -89,9 +89,19 @@ else
     echo "Ngày hiện tại là ngày lẻ ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản ODD: $CONFIG_NAME_ODD"
 fi
 
+# Kiểm tra và thiết lập múi giờ nếu cần, thay Asia/Ho_Chi_Minh thành timezone thực tế bạn cần.
+CURRENT_TIMEZONE=$(timedatectl | grep "Time zone" | awk '{print $3}')
+CURRENT_UTC_OFFSET=$(timedatectl | grep "Time zone" | awk -F'[()]' '{print $2}')
+DESIRED_TIMEZONE="Asia/Ho_Chi_Minh"
+
 # Thực hiện backup
 if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log; then
-    MESSAGE="🎉 Backup thành công!\n\nDung lượng: $size\nThời gian: $(($SECONDS / 60)) phút $(($SECONDS % 60)) giây\nThư mục: $SERVER_NAME/$TIMESTAMP"
+    MESSAGE="🎉 <b>Backup thành công!</b>\n\n\
+      🔹 <b>Dung lượng:</b> $size\n\
+      🔹 <b>Thời gian:</b> $(($SECONDS / 60)) phút $(($SECONDS % 60)) giây\n\
+      🔹 <b>Thư mục:</b> $SERVER_NAME/$TIMESTAMP\n\
+      🔹 <b>Múi giờ:</b> $CURRENT_TIMEZONE ($CURRENT_UTC_OFFSET)"
+
     send_telegram "$MESSAGE"
     send_email "$MESSAGE"
 else
@@ -111,8 +121,8 @@ echo -ne "
 rm -rf $BACKUP_DIR/*
 
 # Xóa các bản backup cũ hơn 2 tuần
-rclone -q --min-age 2w rmdirs "$CONFIG_NAME:$SERVER_NAME" # Remove all empty folders older than 2 weeks
-rclone -q --min-age 2w delete "$CONFIG_NAME:$SERVER_NAME" # Remove all backups older than 2 weeks
+rclone -q --min-age 2w --exclude "$TIMESTAMP/**" delete "$CONFIG_NAME:$SERVER_NAME"
+rclone -q --min-age 2w --exclude "$TIMESTAMP/**" rmdirs "$CONFIG_NAME:$SERVER_NAME"
 rclone cleanup "$CONFIG_NAME:" # Cleanup Trash
 
 # Hoàn tất
@@ -134,9 +144,6 @@ send_email "$MESSAGE"
 
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) phút và $(($duration % 60)) giây."
 
-# Kiểm tra và thiết lập múi giờ nếu cần, thay Asia/Ho_Chi_Minh thành timezone thực tế bạn cần.
-CURRENT_TIMEZONE=$(timedatectl | grep "Time zone" | awk '{print $3}')
-DESIRED_TIMEZONE="Asia/Ho_Chi_Minh"
 
 if [ "$CURRENT_TIMEZONE" != "$DESIRED_TIMEZONE" ]; then
     echo "Múi giờ hiện tại là $CURRENT_TIMEZONE. Đang thiết lập múi giờ thành $DESIRED_TIMEZONE..."
