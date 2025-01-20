@@ -20,12 +20,14 @@ HƯỚNG DẪN TÍCH HỢP TELEGRAM VÀO SCRIPT BACKUP
 1. TẠO BOT TRÊN TELEGRAM:
    - Mở Telegram và tìm kiếm BotFather.
    - Gửi lệnh /newbot để tạo bot mới.
+   - Đặt tên cho Bot, ví dụ: RealDev Backup
+   - Thiếtlaajp username cho bot, kết thúc bằng _bot, ví dụ: realdev_backup_bot
    - Làm theo hướng dẫn và nhận API Token từ BotFather.
 
 2. LẤY CHAT ID:
-   - Mở trình duyệt và truy cập:
+   - Mở trình duyệt và truy cập, (thay <API_TOKEN> bằng token của bạn):
      https://api.telegram.org/bot<API_TOKEN>/getUpdates
-     Thay <API_TOKEN> bằng API Token từ bước trên.
+     Thay <API_TOKEN> bằng API Token từ bước trên. Ví dụ: https://api.telegram.org/bot7584033267:AAGksSVXIpNow7eOwuxPdwEZcX4D6bm1sS4/getUpdates
    - Gửi tin nhắn bất kỳ cho bot từ tài khoản Telegram của bạn.
    - Refresh đường dẫn trên, bạn sẽ thấy JSON chứa thông tin chat_id.
 
