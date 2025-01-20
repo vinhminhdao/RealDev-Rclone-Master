@@ -9,9 +9,10 @@ TIMESTAMP=$(date +"%F")
 BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
-# Tên Config của rclone cho 2 tài khoản
-CONFIG_NAME_ODD="realdev-backup-odd"   # Tài khoản cho ngày lẻ
-CONFIG_NAME_EVEN="realdev-backup-even" # Tài khoản cho ngày chẵn
+# Tên Config của rclone cho 2 tài khoản. 
+# Chú ý bạn cần phải tạo chính xác từ lệnh rclone config, và nano /root/backup.sh để sửa cho chính xác nếu có nhiều config, còn không nhập 1 tên là được cho cả 2, hoặc để trống chỉ sử dụng backup cho riêng ngày chẵn hoặc lẻ.
+CONFIG_NAME_ODD="realdev-backup"   # Tài khoản cho ngày lẻ, ví dụ: realdev-backup-odd
+CONFIG_NAME_EVEN="realdev-backup" # Tài khoản cho ngày chẵn, ví dụ: realdev-backup-event
 
 # Xác định ngày của tháng
 DAY_OF_MONTH=$(date +%d)
@@ -43,7 +44,7 @@ else
 fi
 
 # Thực hiện backup
-rclone move $BACKUP_DIR "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" >> /root/backup.log 2>&1
+rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log
 
 # Clean up
 echo -ne "
