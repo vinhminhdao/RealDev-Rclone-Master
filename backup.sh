@@ -10,8 +10,8 @@ BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
 # Tên Config của rclone cho 2 tài khoản.
-CONFIG_NAME_ODD="realdev-backup"  # Tài khoản cho ngày lẻ
-CONFIG_NAME_EVEN="realdev-backup" # Tài khoản cho ngày chẵn
+ODD="realdev-backup"  # Tài khoản cho ngày lẻ
+EVEN="realdev-backup" # Tài khoản cho ngày chẵn
 
 # Thông tin Telegram Bot
 echo -ne "
@@ -21,10 +21,11 @@ HƯỚNG DẪN TÍCH HỢP TELEGRAM VÀO SCRIPT BACKUP
    - Mở Telegram và tìm kiếm BotFather.
    - Gửi lệnh /newbot để tạo bot mới.
    - Đặt tên cho Bot, ví dụ: RealDev Backup
-   - Thiếtlaajp username cho bot, kết thúc bằng _bot, ví dụ: realdev_backup_bot
+   - Thiết lập username cho bot, kết thúc bằng _bot, ví dụ: realdev_backup_bot
    - Làm theo hướng dẫn và nhận API Token từ BotFather.
 
 2. LẤY CHAT ID:
+   - Sau khi có API, click vào Bot của bạn, gõ ký tự tùy ý để gửi tin nhắn, mục đích get ID của BOT.
    - Mở trình duyệt và truy cập, (thay <API_TOKEN> bằng token của bạn):
      https://api.telegram.org/bot<API_TOKEN>/getUpdates
      Thay <API_TOKEN> bằng API Token từ bước trên. Ví dụ: https://api.telegram.org/bot7583267403:AAGksSVXeOwuxPdwEZcX4D6IpNow7/getUpdates
@@ -36,7 +37,6 @@ Chúc bạn tích hợp thành công!
 "
 TELEGRAM_BOT_TOKEN="API" # Thay API bằng API Token của bot, ví dụ: 7583267403:AAGksSVXeOwuxPdwEZcX4D6IpNow7
 TELEGRAM_CHAT_ID="ID"    # Thay ID bằng Chat ID của bạn, ví dụ: 375566796
-
 
 # Gửi thông báo qua Telegram
 send_telegram() {
@@ -86,11 +86,11 @@ echo -ne "
 
 # Kiểm tra ngày chẵn/lẻ
 if ((DAY_OF_MONTH % 2 == 0)); then
-    CONFIG_NAME=$CONFIG_NAME_EVEN
-    echo "Ngày hiện tại là ngày chẵn ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản EVEN: $CONFIG_NAME_EVEN"
+    CONFIG_NAME=$EVEN
+    echo "Ngày hiện tại là ngày chẵn ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản EVEN: $EVEN"
 else
-    CONFIG_NAME=$CONFIG_NAME_ODD
-    echo "Ngày hiện tại là ngày lẻ ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản ODD: $CONFIG_NAME_ODD"
+    CONFIG_NAME=$ODD
+    echo "Ngày hiện tại là ngày lẻ ($DAY_OF_MONTH). Sử dụng cấu hình Rclone cho Tài khoản ODD: $ODD"
 fi
 
 # Kiểm tra và thiết lập múi giờ nếu cần, thay Asia/Ho_Chi_Minh thành múi giờ thực tế của bạn.
