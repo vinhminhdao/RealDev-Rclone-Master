@@ -96,11 +96,11 @@ DESIRED_TIMEZONE="Asia/Ho_Chi_Minh"
 
 # Thực hiện backup
 if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log; then
-    MESSAGE="🎉 <b>Backup thành công!</b>\n\n\
-      🔹 <b>Dung lượng:</b> $size\n\
-      🔹 <b>Thời gian:</b> $(($SECONDS / 60)) phút $(($SECONDS % 60)) giây\n\
-      🔹 <b>Thư mục:</b> $SERVER_NAME/$TIMESTAMP\n\
-      🔹 <b>Múi giờ:</b> $CURRENT_TIMEZONE ($CURRENT_UTC_OFFSET)"
+    MESSAGE="🎉 Backup thành công!\n\n\
+   🔹 Dung lượng: $size\n\
+   🔹 Thời gian: $(($duration / 60)) phút $(($duration % 60)) giây\n\
+   🔹 Thư mục: $SERVER_NAME/$TIMESTAMP\n\
+   🔹 Múi giờ: $CURRENT_TIMEZONE ($CURRENT_UTC_OFFSET)"
 
     send_telegram "$MESSAGE"
     send_email "$MESSAGE"
@@ -138,7 +138,6 @@ Chú ý:
 "
 duration=$SECONDS
 
-MESSAGE="✅ Backup hoàn tất!\nDung lượng: $size\nThời gian: $(($duration / 60)) phút $(($duration % 60)) giây.\nMúi giờ hiện tại: $(timedatectl | grep 'Time zone')"
 send_telegram "$MESSAGE"
 send_email "$MESSAGE"
 
