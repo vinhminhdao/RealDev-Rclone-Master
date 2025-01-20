@@ -9,10 +9,54 @@ TIMESTAMP=$(date +"%F")
 BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
-# Tên Config của rclone cho 2 tài khoản. 
-# Chú ý bạn cần phải tạo chính xác từ lệnh rclone config, và nano /root/backup.sh để sửa cho chính xác nếu có nhiều config, còn không nhập 1 tên là được cho cả 2, hoặc để trống chỉ sử dụng backup cho riêng ngày chẵn hoặc lẻ.
-CONFIG_NAME_ODD="realdev-backup"   # Tài khoản cho ngày lẻ, ví dụ: realdev-backup-odd
-CONFIG_NAME_EVEN="realdev-backup" # Tài khoản cho ngày chẵn, ví dụ: realdev-backup-event
+# Tên Config của rclone cho 2 tài khoản.
+CONFIG_NAME_ODD="realdev-backup"   # Tài khoản cho ngày lẻ
+CONFIG_NAME_EVEN="realdev-backup" # Tài khoản cho ngày chẵn
+
+# Thông tin Telegram Bot
+echo -ne "
+==============================================================================================
+HƯỚNG DẪN TÍCH HỢP TELEGRAM VÀO SCRIPT BACKUP
+1. TẠO BOT TRÊN TELEGRAM:
+   - Mở Telegram và tìm kiếm BotFather.
+   - Gửi lệnh /newbot để tạo bot mới.
+   - Làm theo hướng dẫn và nhận API Token từ BotFather.
+
+2. LẤY CHAT ID:
+   - Mở trình duyệt và truy cập:
+     https://api.telegram.org/bot<API_TOKEN>/getUpdates
+     Thay <API_TOKEN> bằng API Token từ bước trên.
+   - Gửi tin nhắn bất kỳ cho bot từ tài khoản Telegram của bạn.
+   - Refresh đường dẫn trên, bạn sẽ thấy JSON chứa thông tin chat_id.
+
+Chúc bạn tích hợp thành công!
+==============================================================================================
+"
+TELEGRAM_BOT_TOKEN="YOUR_BOT_API_TOKEN"  # Thay bằng API Token của bot
+TELEGRAM_CHAT_ID="YOUR_CHAT_ID"         # Thay bằng Chat ID của bạn
+
+# Thông tin Email, thay admin@example.com thành Email thực tế của Bạn
+EMAIL_TO="admin@example.com" # Email nhận thông báo
+HOSTNAME=$(hostname)
+EMAIL_SUBJECT="Báo cáo Backup - $HOSTNAME - $TIMESTAMP"
+
+
+# Gửi thông báo qua Telegram
+send_telegram() {
+    local MESSAGE="$1"
+    local TELEGRAM_API_URL="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
+
+    curl -s -X POST "$TELEGRAM_API_URL" \
+        -d chat_id="$TELEGRAM_CHAT_ID" \
+        -d text="$MESSAGE" \
+        -d parse_mode="HTML" > /dev/null
+}
+
+# Gửi email báo cáo
+send_email() {
+    local MESSAGE="$1"
+    echo -e "$MESSAGE" | mail -s "$EMAIL_SUBJECT" "$EMAIL_TO"
+}
 
 # Xác định ngày của tháng
 DAY_OF_MONTH=$(date +%d)
@@ -21,11 +65,11 @@ DAY_OF_MONTH=$(date +%d)
 size=$(du -sh $BACKUP_DIR | awk '{ print $1 }')
 
 echo -ne "
+==============================================================================================
 
-
+Bắt đầu Backup Hệ thống $BACKUP_DIR
 
 "
-echo "Bắt đầu Backup Hệ thống $BACKUP_DIR"
 echo -ne "
 ==============================================================================================
 
@@ -44,7 +88,16 @@ else
 fi
 
 # Thực hiện backup
-rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log
+if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log; then
+    MESSAGE="🎉 Backup thành công!\n\nDung lượng: $size\nThời gian: $(($SECONDS / 60)) phút $(($SECONDS % 60)) giây\nThư mục: $SERVER_NAME/$TIMESTAMP"
+    send_telegram "$MESSAGE"
+    send_email "$MESSAGE"
+else
+    MESSAGE="⚠️ Backup thất bại!\nVui lòng kiểm tra log tại /root/backup.log"
+    send_telegram "$MESSAGE"
+    send_email "$MESSAGE"
+    exit 1
+fi
 
 # Clean up
 echo -ne "
@@ -53,7 +106,6 @@ echo -ne "
         Đang tối ưu hóa dung lượng VPS / Dedicated của Bạn. Vui lòng chờ.
 
 "
-echo ""
 rm -rf $BACKUP_DIR/*
 
 # Xóa các bản backup cũ hơn 2 tuần
@@ -73,10 +125,25 @@ Chú ý:
 
 "
 duration=$SECONDS
-timedatectl set-timezone Asia/Ho_Chi_Minh
+
+MESSAGE="✅ Backup hoàn tất!\nDung lượng: $size\nThời gian: $(($duration / 60)) phút $(($duration % 60)) giây.\nMúi giờ hiện tại: $(timedatectl | grep 'Time zone')"
+send_telegram "$MESSAGE"
+send_email "$MESSAGE"
+
 echo "Tổng Kích thước là: $size, Backup lên Cloud trong $(($duration / 60)) phút và $(($duration % 60)) giây."
-echo "Múi giờ và Ngày Giờ trên VPS của Bạn là:"
-timedatectl
+
+# Kiểm tra và thiết lập múi giờ nếu cần, thay Asia/Ho_Chi_Minh thành timezone thực tế bạn cần.
+CURRENT_TIMEZONE=$(timedatectl | grep "Time zone" | awk '{print $3}')
+DESIRED_TIMEZONE="Asia/Ho_Chi_Minh"
+
+if [ "$CURRENT_TIMEZONE" != "$DESIRED_TIMEZONE" ]; then
+    echo "Múi giờ hiện tại là $CURRENT_TIMEZONE. Đang thiết lập múi giờ thành $DESIRED_TIMEZONE..."
+    timedatectl set-timezone $DESIRED_TIMEZONE
+    echo "Múi giờ đã được thay đổi thành $DESIRED_TIMEZONE."
+else
+    echo "Múi giờ hiện tại : $CURRENT_TIMEZONE."
+fi
+
 echo -ne "
 ==============================================================================================
 
@@ -86,4 +153,3 @@ Chú ý:
                                 Nhấn Enter để thoát.
 
 =============================================================================================="
-echo ""
