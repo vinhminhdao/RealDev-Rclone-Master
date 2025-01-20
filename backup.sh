@@ -12,7 +12,7 @@ TIMESTAMP=$(date +"%F")
 BACKUP_DIR="/home/admin/admin_backups/"
 SECONDS=0
 
-# Tên Config của rclone cho 2 tài khoản.
+# Tên Config của rclone cho 2 tài khoản, để chung nếu bạn muốn backup hàng ngày như nhau hoặc để trống nếu muốn.
 ODD="realdev-backup"  # Tài khoản cho ngày lẻ
 EVEN="realdev-backup" # Tài khoản cho ngày chẵn
 
