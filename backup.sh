@@ -27,15 +27,15 @@ HƯỚNG DẪN TÍCH HỢP TELEGRAM VÀO SCRIPT BACKUP
 2. LẤY CHAT ID:
    - Mở trình duyệt và truy cập, (thay <API_TOKEN> bằng token của bạn):
      https://api.telegram.org/bot<API_TOKEN>/getUpdates
-     Thay <API_TOKEN> bằng API Token từ bước trên. Ví dụ: https://api.telegram.org/bot7584033267:AAGksSVXIpNow7eOwuxPdwEZcX4D6bm1sS4/getUpdates
+     Thay <API_TOKEN> bằng API Token từ bước trên. Ví dụ: https://api.telegram.org/bot7583267403:AAGksSVXeOwuxPdwEZcX4D6IpNow7/getUpdates
    - Gửi tin nhắn bất kỳ cho bot từ tài khoản Telegram của bạn.
    - Refresh đường dẫn trên, bạn sẽ thấy JSON chứa thông tin chat_id.
 
 Chúc bạn tích hợp thành công!
 ==============================================================================================
 "
-TELEGRAM_BOT_TOKEN="YOUR_BOT_API_TOKEN"  # Thay bằng API Token của bot
-TELEGRAM_CHAT_ID="YOUR_CHAT_ID"         # Thay bằng Chat ID của bạn
+TELEGRAM_BOT_TOKEN="API"  # Thay API bằng API Token của bot, ví dụ: 7583267403:AAGksSVXeOwuxPdwEZcX4D6IpNow7
+TELEGRAM_CHAT_ID="ID"     # Thay ID bằng Chat ID của bạn, ví dụ: 375566796
 
 # Thông tin Email, thay admin@example.com thành Email thực tế của Bạn
 EMAIL_TO="admin@example.com" # Email nhận thông báo
