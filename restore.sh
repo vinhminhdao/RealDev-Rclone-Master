@@ -22,6 +22,6 @@ FOLDER_DAY=2025-02-22;
 CONFIG_NAME=realdev-backup;
 RESTORE_DIR="/home/admin/admin_backups/";
 echo "Bắt đầu RESTORE Hệ thống $RESTORE_DIR";
-rclone copy -P "$CONFIG_NAME:$SERVER_NAME/$FOLDER_DAY" $RESTORE_DIR >> /root/restore.log 2>&1;
+rclone copy -P "$CONFIG_NAME:$SERVER_NAME/$FOLDER_DAY" $RESTORE_DIR 2>&1 | tee /root/restore.log
 echo "Múi giờ và Ngày Giờ trên VPS của Bạn là:";
 timedatectl;
