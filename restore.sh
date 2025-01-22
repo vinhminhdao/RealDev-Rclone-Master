@@ -18,7 +18,7 @@ echo -ne "
 echo "":
 pause ' Nhấn [Enter] để tiếp tục...';
 SERVER_NAME=Backup-System;
-FOLDER_DAY=2022-10-10;
+FOLDER_DAY=2025-02-22;
 CONFIG_NAME=realdev-backup;
 RESTORE_DIR="/home/admin/admin_backups/";
 echo "Bắt đầu RESTORE Hệ thống $RESTORE_DIR";
