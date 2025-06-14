@@ -122,8 +122,12 @@ create_backup_message() {
 🔹 <b>Múi giờ:</b> $CURRENT_TIMEZONE (UTC$UTC_OFFSET)"
 }
 
+# Đảm bảo thư mục đích tồn tại trên remote
+rclone mkdir "$CONFIG_NAME:$SERVER_NAME" 2>/dev/null
+
 # Thực hiện backup
 if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log; then
+
     echo -ne "
     
         ✅ Backup thành công.    
