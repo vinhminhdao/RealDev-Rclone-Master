@@ -123,7 +123,10 @@ create_backup_message() {
 }
 
 # Đảm bảo thư mục đích tồn tại trên remote
-rclone mkdir "$CONFIG_NAME:$SERVER_NAME" 2>/dev/null
+if ! rclone lsd "$CONFIG_NAME:$SERVER_NAME" >/dev/null 2>&1; then
+    rclone mkdir "$CONFIG_NAME:$SERVER_NAME"
+fi
+
 
 # Thực hiện backup
 if rclone move "$BACKUP_DIR" "$CONFIG_NAME:$SERVER_NAME/$TIMESTAMP" -P | tee -a /root/backup.log; then
